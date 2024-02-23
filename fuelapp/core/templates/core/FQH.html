@@ -1,0 +1,80 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Fuel Quote History | {% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   <title>FuelApp</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+   <style>
+      table {
+         font-family: arial, sans-serif;
+         border-collapse: collapse;
+         width: 95%;
+         text-align: center;
+         margin-left: auto;
+         margin-right: auto;
+      }
+
+      td,
+      th {
+         border: 1px solid black;
+         text-align: left;
+         padding: 8px;
+         background-color: white;
+         text-align: center;
+      }
+   </style>
+</head>
+
+<body class="bg-gray-300">
+   <h1 class="text-3xl font-bold text-center mt-10">Fuel Quote History</h1>
+   <table class="table-fixed">
+      <thead>
+         <tr>
+            <th>Quote ID</th>
+            <th>Gallons Requested</th>
+            <th>Delivery Address</th>
+            <th>Delivery Date</th>
+            <th>Suggested Price</th>
+            <th>Total Amount Due</th>
+         </tr>
+      </thead>
+      <tbody>
+      <tr>
+         <td>1</td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+      </tr>
+      <tr>
+         <td>2</td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+      </tr>
+      <tr>
+         <td>3</td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+      </tr>
+   </tbody>
+
+   </table>
+</body>
+
+</html>
+{% endblock %}
