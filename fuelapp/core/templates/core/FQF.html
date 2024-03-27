@@ -103,28 +103,12 @@
     </head>
 
         <body class="bg-gray-300">
-       
             <div class="container">
                 <h1>Fuel Quote Form</h1>
-                <form>
-                    <label  for="gallons">Gallons Requested:  </label><span class="required-text-gal">Required</span> <br>
-                    <input type="number" id="gallons" name="gallons" required><br>
-
-                    <label for="delivery">Delivery Address:</label><br>
-                    <input type="text" id="delivery" name="delivery" readonly>
-
-                    <label for="date">Delivery Date:</label><span class="required-text-Date">Required</span><br>
-                    <input type="date" id="date" name="date" required><br>
-                    
-
-                    <label for="suggprice">Suggested Price:</label><br>
-                    <input type="number" id="suggprice" name="suggprice" readonly><br>
-                    
-                    <label for="total">Total Amount Due:</label><br>
-                    <input type="number" id="total" name="total" readonly><br><br>
-
-                    <input type="submit" value="Submit" class="button">
-                    
+                <form method="post">
+                    {% csrf_token %}
+                    {{ fuel_quote_form.as_p }}
+                    <input type="submit" value="Submit">
                 </form>
             </div>
 

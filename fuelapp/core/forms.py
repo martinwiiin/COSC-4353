@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, FuelQuote
 from django import forms
 
 class SignUpForm(UserCreationForm):
@@ -85,4 +85,18 @@ class ProfileForm(forms.ModelForm):
             'zip': forms.TextInput(attrs={'class': 'form-control', 'required': True})  # Making zip code required
         }
 
-        
+class FuelQuoteForm(forms.ModelForm):
+    class Meta:
+        model = FuelQuote
+        fields = ['gallons_requested', 'delivery_address', 'delivery_date', 'suggested_price', 'total_amount_due']
+        labels = {
+            'gallons_requested': 'Gallons Requested',
+            'delivery_address': 'Delivery Address',
+            'delivery_date': 'Delivery Date',
+            'suggested_price': 'Suggested Price',
+            'total_amount_due': 'Total Amount Due'
+        }
+        widgets = {
+            'delivery_date': forms.DateInput(attrs={'type': 'date'}),
+            'gallons_requested': forms.NumberInput(attrs={'class': 'form-control', 'required': True}),
+        }        

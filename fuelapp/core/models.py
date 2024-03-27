@@ -64,3 +64,10 @@ class Profile(models.Model):
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=2, choices=STATE_CHOICES)
     zip_code = models.CharField(max_length=10)
+
+class FuelQuote(models.Model):
+    gallons_requested = models.FloatField()
+    delivery_address = models.CharField(max_length=100)
+    delivery_date = models.DateField()
+    suggested_price = models.FloatField()
+    total_amount_due = models.FloatField()

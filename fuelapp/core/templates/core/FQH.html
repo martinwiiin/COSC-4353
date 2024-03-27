@@ -4,77 +4,75 @@
 
 {% block content %}
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-   <title>FuelApp</title>
-   <script src="https://cdn.tailwindcss.com"></script>
-   <style>
-      table {
-         font-family: arial, sans-serif;
-         border-collapse: collapse;
-         width: 95%;
-         text-align: center;
-         margin-left: auto;
-         margin-right: auto;
-      }
-
-      td,
-      th {
-         border: 1px solid black;
-         text-align: left;
-         padding: 8px;
-         background-color: white;
-         text-align: center;
-      }
-   </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Quote History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
 </head>
-
-<body class="bg-gray-300">
-   <h1 class="text-3xl font-bold text-center mt-10">Fuel Quote History</h1>
-   <table class="table-fixed">
-      <thead>
-         <tr>
-            <th>Quote ID</th>
-            <th>Gallons Requested</th>
-            <th>Delivery Address</th>
-            <th>Delivery Date</th>
-            <th>Suggested Price</th>
-            <th>Total Amount Due</th>
-         </tr>
-      </thead>
-      <tbody>
-      <tr>
-         <td>1</td>
-         <td></td>
-         <td></td>
-         <td></td>
-         <td></td>
-         <td></td>
-      </tr>
-      <tr>
-         <td>2</td>
-         <td></td>
-         <td></td>
-         <td></td>
-         <td></td>
-         <td></td>
-      </tr>
-      <tr>
-         <td>3</td>
-         <td></td>
-         <td></td>
-         <td></td>
-         <td></td>
-         <td></td>
-      </tr>
-   </tbody>
-
-   </table>
+<body>
+    <h1>Fuel Quote History</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Gallons Requested</th>
+                <th>Delivery Address</th>
+                <th>Delivery Date</th>
+                <th>Suggested Price</th>
+                <th>Total Amount Due</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fuel_quote in fuel_quotes %}
+            <tr>
+                <td>{{ fuel_quote.gallons_requested }}</td>
+                <td>{{ fuel_quote.delivery_address }}</td>
+                <td>{{ fuel_quote.delivery_date }}</td>
+                <td>{{ fuel_quote.suggested_price }}</td>
+                <td>{{ fuel_quote.total_amount_due }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
-
 </html>
+
+
 {% endblock %}

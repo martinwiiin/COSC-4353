@@ -12,45 +12,60 @@
             body {
                 font-family: Arial, sans-serif;
                 background-color: #f4f4f4;
-                margin: 0;
-                padding: 0;
-            }
-    
-            .centered-container {
-                display: flex;
+                margin:0;
+                padding:0;
+                
                 justify-content: center;
                 align-items: center;
-                min-height: 100vh;
+                height: 100vh;
             }
-    
+
             .container {
+                
                 background-color: #fff;
                 padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                max-width: 400px;
-                width: 100%;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                width: 50%;
+                margin-top: 50px;
+                margin-inline: auto;
             }
-    
+
             h1 {
-                text-align: center;
                 margin-bottom: 20px;
+                color: #333;
+                text-align: center;
             }
-    
+            
             label {
                 font-weight: bold;
             }
-    
-            input[type="text"],
-            select {
+
+            input[type="text"],select {
                 width: 100%;
                 padding: 8px;
                 margin-bottom: 10px;
                 box-sizing: border-box;
-                border: 1px solid #ccc;
+                border: solid 1px #ccc;
                 border-radius: 4px;
             }
-    
+            input[type="number"],select {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 10px;
+                box-sizing: border-box;
+                border:  solid 1px #ccc;
+                border-radius: 4px;
+            }
+            input[type="date"],select {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 10px;
+                box-sizing: border-box;
+                border:  solid 1px #ccc;
+                border-radius: 4px;
+            }
+
             input[type="submit"] {
                 width: 100%;
                 padding: 10px;
@@ -60,35 +75,22 @@
                 border-radius: 4px;
                 cursor: pointer;
             }
-    
-            input[type="submit"]:hover {
-                background-color: #0056b3;
+
+            .required:after {
+            content:"Required";
+            color: gray;
+            text-align: right;
             }
-    
-    
-            .required-text {
-                font-style: italic;
-                font-size: 0.8em;
-                margin-left: 220px;
-                color: #999;
-                align-self: flex-start;
+            .required-text-gal {
+                margin-left:165px;
+                color: gray;
             }
-    
-            .city-text {
-                font-style: italic;
-                font-size: 0.8em;
-                margin-left: 260px;
-                color: #999;
-                align-self: flex-start;
+            .required-text-Date {
+                margin-left:213px;
+                color: gray;
             }
-    
-            .zip-text {
-                font-style: italic;
-                font-size: 0.8em;
-                margin-left: 240px;
-                color: #999;
-                align-self: flex-start;
-            }
+            
+            
         </style>
     </head>
 <body>
@@ -97,7 +99,7 @@
         <h1>Profile</h1>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ profile_form.as_p }}
             <input type="submit" value="Save">
         </form>
         </div>
