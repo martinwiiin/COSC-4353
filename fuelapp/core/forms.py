@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Profile, FuelQuote
 from django import forms
+from django.core.validators import MaxLengthValidator
 
 class SignUpForm(UserCreationForm):
     class Meta:
@@ -64,7 +65,11 @@ class ProfileForm(forms.ModelForm):
         ('WI', 'Wisconsin'),
         ('WY', 'Wyoming'),
     )
-
+    zip_code = forms.CharField(
+        max_length=5,
+        validators=[MaxLengthValidator(5)],
+        widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+    )
     class Meta:
         model = Profile
         fields = ['full_name', 'address1', 'address2', 'city', 'state', 'zip_code']
@@ -99,4 +104,10 @@ class FuelQuoteForm(forms.ModelForm):
         widgets = {
             'delivery_date': forms.DateInput(attrs={'type': 'date'}),
             'gallons_requested': forms.NumberInput(attrs={'class': 'form-control', 'required': True}),
-        }        
+        }
+
+    def clean_gallons_requested(self):
+        gallons_requested = self.cleaned_data.get('gallons_requested')
+        if gallons_requested and gallons_requested <= 0:
+            raise forms.ValidationError("Gallons requested must be greater than 0.")
+        return gallons_requested
