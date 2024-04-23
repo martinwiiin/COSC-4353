@@ -109,6 +109,11 @@
                     {% csrf_token %}
                     {{ fuel_quote_form.as_p }}
                     <div id="quote-results">
+                        <label for="id_suggested_price">Suggested Price:</label>
+                        <input type="text" id="id_suggested_price" name="suggested_price" readonly>
+                        <label for="id_total_amount_due">Total Amount Due:</label>
+                        <input type="text" id="id_total_amount_due" name="total_amount_due" readonly>
+                    <input type="submit" value="Submit">
                     <button type="button" id="get-quote-btn" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-2">Get Quote</button>
                 </form>
             </div>
