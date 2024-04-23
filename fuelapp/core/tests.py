@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from .forms import SignUpForm,ProfileForm,FuelQuoteForm
 from .models import Profile,FuelQuote
-
+from .pricing_module import calculate_price
 
 class SignUpFormTestCase(TestCase):
     def test_valid_form(self):
@@ -201,4 +201,44 @@ class TestModels(TestCase):
         self.assertEqual(fq.suggested_price, 2.5)
         self.assertEqual(fq.total_amount_due, 250)
 
+class CalculatePriceTestCase(TestCase):
 
+    def test_calculate_price_for_TX_location_with_rate_history(self):
+        gallons_requested = 1500
+        location = 'TX'
+        has_history = True
+        expected_suggested_price = 1.50 + (1.50 * (0.02 - 0.01 + 0.02 + 0.10))
+        expected_total_price = gallons_requested * expected_suggested_price
+        suggested_price, total_price = calculate_price(gallons_requested, location, has_history)
+        self.assertEqual(suggested_price, expected_suggested_price)
+        self.assertEqual(total_price, expected_total_price)
+
+    def test_calculate_price_for_non_TX_location_with_rate_history(self):
+        gallons_requested = 1500
+        location = 'NY'
+        has_history = True
+        expected_suggested_price = 1.50 + (1.50 * (0.04 - 0.01 + 0.02 + 0.10))
+        expected_total_price = gallons_requested * expected_suggested_price
+        suggested_price, total_price = calculate_price(gallons_requested, location, has_history)
+        self.assertEqual(suggested_price, expected_suggested_price)
+        self.assertEqual(total_price, expected_total_price)
+
+    def test_calculate_price_for_TX_location_without_rate_history(self):
+        gallons_requested = 1500
+        location = 'TX'
+        has_history = False
+        expected_suggested_price = 1.50 + (1.50 * (0.02 - 0 + 0.02 + 0.10))
+        expected_total_price = gallons_requested * expected_suggested_price
+        suggested_price, total_price = calculate_price(gallons_requested, location, has_history)
+        self.assertEqual(suggested_price, expected_suggested_price)
+        self.assertEqual(total_price, expected_total_price)
+
+    def test_calculate_price_for_non_TX_location_without_rate_history(self):
+        gallons_requested = 1500
+        location = 'NY'
+        has_history = False
+        expected_suggested_price = 1.50 + (1.50 * (0.04 - 0 + 0.02 + 0.10))
+        expected_total_price = gallons_requested * expected_suggested_price
+        suggested_price, total_price = calculate_price(gallons_requested, location, has_history)
+        self.assertEqual(suggested_price, expected_suggested_price)
+        self.assertEqual(total_price, expected_total_price)
