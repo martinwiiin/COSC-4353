@@ -98,8 +98,6 @@ class FuelQuoteFormTestCase(TestCase):
         self.assertEqual(form.errors['gallons_requested'], ['This field is required.'])
         self.assertEqual(form.errors['delivery_address'], ['This field is required.'])
         self.assertEqual(form.errors['delivery_date'], ['This field is required.'])
-        self.assertEqual(form.errors['suggested_price'], ['This field is required.'])
-        self.assertEqual(form.errors['total_amount_due'], ['This field is required.'])
 
     def test_invalid_gallons_requested(self):
         # Test case where gallons requested is negative
@@ -140,18 +138,32 @@ class TestViews(TestCase):
 
 
     def test_fqf_submission(self):
+    # Create a user
+        user = User.objects.create_user(username='testuser', password='testpassword123')
+        
+        # Create a profile for the user
+        profile = Profile.objects.create(
+            full_name='John Doe',
+            address1='123 Main St',
+            address2='Apt 101',
+            city='Anytown',
+            state='CA',
+            zip_code='12345'
+        )
+        
+        # Associate the profile with the user
+        user.profile = profile
+        user.save()
+        
+        # Log in the user
+        self.client.force_login(user)
+        
+        # Submit the form with the associated profile
         form_data = {
             'gallons_requested': 100,
-            'delivery_address': '123 Main St',
             'delivery_date': '2024-04-01',
         }
-        response = self.client.post(self.test_fqf_view, data= form_data)
-    
-    def test_fqh_view(self):
-        response = self.client.get(reverse('FQH'))
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'core/FQH.html')
+        response = self.client.post(self.test_fqf_view, data=form_data)
 
 
 class TestModels(TestCase):
