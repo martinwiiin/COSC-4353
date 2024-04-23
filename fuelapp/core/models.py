@@ -69,5 +69,5 @@ class FuelQuote(models.Model):
     gallons_requested = models.FloatField()
     delivery_address = models.CharField(max_length=100)
     delivery_date = models.DateField()
-    suggested_price = models.FloatField()
-    total_amount_due = models.FloatField()
+    suggested_price = models.FloatField(blank=True, null=True, editable=False)
+    total_amount_due = models.FloatField(blank=True, null=True, editable=False)

@@ -93,13 +93,11 @@ class ProfileForm(forms.ModelForm):
 class FuelQuoteForm(forms.ModelForm):
     class Meta:
         model = FuelQuote
-        fields = ['gallons_requested', 'delivery_address', 'delivery_date', 'suggested_price', 'total_amount_due']
+        fields = ['gallons_requested', 'delivery_address', 'delivery_date']
         labels = {
             'gallons_requested': 'Gallons Requested',
             'delivery_address': 'Delivery Address',
             'delivery_date': 'Delivery Date',
-            'suggested_price': 'Suggested Price',
-            'total_amount_due': 'Total Amount Due'
         }
         widgets = {
             'delivery_date': forms.DateInput(attrs={'type': 'date'}),
@@ -111,3 +109,4 @@ class FuelQuoteForm(forms.ModelForm):
         if gallons_requested and gallons_requested <= 0:
             raise forms.ValidationError("Gallons requested must be greater than 0.")
         return gallons_requested
+

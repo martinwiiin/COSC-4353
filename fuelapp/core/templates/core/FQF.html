@@ -105,13 +105,40 @@
         <body class="bg-gray-300">
             <div class="container">
                 <h1>Fuel Quote Form</h1>
-                <form method="post">
+                <form method="post" id="fuel-quote-form">
                     {% csrf_token %}
                     {{ fuel_quote_form.as_p }}
+                    <div id="quote-results">
+                        <label for="id_suggested_price">Suggested Price:</label>
+                        <input type="text" id="id_suggested_price" name="suggested_price" readonly>
+                        <label for="id_total_amount_due">Total Amount Due:</label>
+                        <input type="text" id="id_total_amount_due" name="total_amount_due" readonly>
                     <input type="submit" value="Submit">
+                    <button type="button" id="get-quote-btn" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded mt-2">Get Quote</button>
                 </form>
             </div>
 
+            <script>
+                document.getElementById('get-quote-btn').addEventListener('click', function() {
+                    var formData = new FormData(document.getElementById('fuel-quote-form'));
+                    formData.append('get_quote', 'true');  // Add a field to indicate that it's a quote request
+                    fetch('{% url 'FQF' %}', {  // Send the request to the FQF view
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Update the form fields with the received data
+                        document.getElementById('id_suggested_price').value = data.suggested_price;
+                        document.getElementById('id_total_amount_due').value = data.total_amount_due;
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            </script>        
+            
         </body>
 </html>
 {% endblock %}
